@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+    
+        /* Updated Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f2f5f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .flight-info {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .flight-info .flight-details {
+            margin-left: 20px;
+        }
+
+        .flight-info .flight-details .flight-duration,
+        .flight-info .flight-details .flight-distance {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .flight-info .flight-details .flight-duration::before {
+            content: "Duration: ";
+        }
+
+        .flight-info .flight-details .flight-distance::before {
+            content: "Distance: ";
+        }
+.button {
+    background-color: hsl(251, 71%, 58%); /* Darker Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+/* CSS for the button hover effect */
+.button:hover {
+  background-color: hsl(251, 71%, 58%); /* Darker Green */
+}
+</style>
+</head>
+<body>
+    </style>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                clifford: "#da373d",
+              },
+            },
+          },
+        };
+      </script>
+     
+        
+</head>
+
+<body>
+
+    <header class="bg-gray-800">
+        <div
+          class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-700 lg:px-8"
+        >
+          <div class="relative flex h-16 justify-between">
+            <div class="relative z-10 flex px-2 lg:px-0"></div>
+            <div
+              class="relative z-0 flex flex-1 items-center justify-between px-2 sm:absolute sm:inset-0"
+            >
+            <div class="relative z-10 flex items-center lg:hidden">
+              <!-- Mobile menu button -->
+              <button
+                type="button"
+                class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white ease-in-out duration-300"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+                id="toggleButton"
+              >
+                <span class="absolute -inset-0.5"></span>
+                <span class="sr-only">Open menu</span>
+                <!--
+                    Icon when menu is closed.
+        
+                    Menu open: "hidden", Menu closed: "block"
+                  -->
+                <svg
+                  class="block h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  id="menuClosedIcon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+                <!--
+                    Icon when menu is open.
+        
+                    Menu open: "3", Menu closed: "hidden"
+                  -->
+                <svg
+                  class="hidden h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  id="menuOpenedIcon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center"
+            >
+              <!-- Profile dropdown -->
+              <div class="relative flex-shrink-0">
+                <div>
+                  <button
+                    type="button"
+                    class="relative flex rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 px-2 py-1"
+                    id="user-menu-button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    <span class="absolute -inset-1.5"></span>
+                    Open user menu
+                  </button>
+                </div>
+  
+                <div
+                  class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ease-in-out"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu-button"
+                  tabindex="-1"
+                  id="user-menu"
+                >
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                    tabindex="-1"
+                    id="user-menu-item-0"
+                    >Your Profile</a
+                  >
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                    tabindex="-1"
+                    id="user-menu-item-1"
+                    >Settings</a
+                  >
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                    tabindex="-1"
+                    id="user-menu-item-2"
+                    >Sign out</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <nav class="hidden lg:flex lg:space-x-8 lg:py-2" aria-label="Global">
+            <a
+              href="#"
+              class="bg-gray-900 text-white inline-flex items-center rounded-md py-2 px-3 text-sm font-medium"
+              aria-current="page"
+              >Home</a
+            >
+            <a
+              href="./for-businesses.html"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white inline-flex items-center rounded-md py-2 px-3 text-sm font-medium"
+              >For businesses
+            </a>
+            <a
+              href="#"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white inline-flex items-center rounded-md py-2 px-3 text-sm font-medium"
+              >Team</a
+            >
+            <a
+              href="./calendar.html"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white inline-flex items-center rounded-md py-2 px-3 text-sm font-medium"
+              >Calendar</a
+            >
+          </nav>
+        </div>
+  
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <nav
+          class="hidden ease-in-out duration-300"
+          aria-label="Global"
+          id="mobile-menu"
+        >
+          <div class="space-y-1 px-2 pb-3 pt-2">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a
+              href="#"
+              class="bg-gray-900 text-white block rounded-md py-2 px-3 text-base font-medium"
+              aria-current="page"
+              >Home</a
+            >
+            <a
+              href="./for-businesses.html"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md py-2 px-3 text-base font-medium"
+              >For Businesses</a
+            >
+            <a
+              href="#"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md py-2 px-3 text-base font-medium"
+              >Projects</a
+            >
+            <a
+              href="./calendar.html"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md py-2 px-3 text-base font-medium"
+              >Calendar</a
+            >
+          </div>
+          <div class="border-t border-gray-700 pb-3 pt-4">
+            <div class="flex items-center px-4">
+              <div class="flex-shrink-0">
+                <img
+                  class="h-10 w-10 rounded-full"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
+              </div>
+              <div class="ml-3">
+                <div class="text-base font-medium text-white">Tom Cook</div>
+                <div class="text-sm font-medium text-gray-400">
+                  tom@example.com
+                </div>
+              </div>
+              <button
+                type="button"
+                class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              >
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">View notifications</span>
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-3 space-y-1 px-2">
+              <a
+                href="#"
+                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                >Your Profile</a
+              >
+              <a
+                href="#"
+                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                >Settings</a
+              >
+              <a
+                href="#"
+                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                >Sign out</a
+              >
+            </div>
+          </div>
+        </nav>
+      </header>
+    <div class="container mx-auto p-4">
+        <!-- Flight Search Form -->
+        <form id="flightSearchForm" action="your_backend_endpoint_here" method="POST" class="flex flex-wrap items-center justify-between bg-white rounded-lg p-6 shadow-lg">
+        
+            <div class="w-full md:w-1/3 mb-4 md:mb-0">
+                <label class="block text-gray-700 text-sm font-semibold mb-2">Select Payment Method:</label>
+                <select class="custom-selectbox" name="paymentMethod">
+                    <option value="UZS">Uzcard / Humo (UZS)</option>
+                    <option value="USD" selected>Visa / MasterCard (USD)</option>
+                    <option value="RUB">Payment by cards in RUB</option>
+                    <option value="UZC">Uzcard corporate</option>
+                </select>
+            </div>
+        </form>
+   
+        <!-- Flight Information Display -->
+        <div class="flight-info">
+            <div class="text-xl font-semibold mb-4">Economy Class</div>
+            <div class="border-b pb-4 mb-4 flex items-center">
+                <div class="mr-4">
+                    <svg width="210" height="48" viewBox="0 0 210 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_1697_31139)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.6154 0.00024032C28.5839 -0.025067 34.3183 2.29839 38.5577 6.45976C42.7971 10.6211 45.1945 16.2798 45.2227 22.1915C45.1945 28.1031 42.7971 33.7617 38.5577 37.9231C34.3183 42.0845 28.5839 44.4079 22.6154 44.3826C16.6454 44.4101 10.909 42.0876 6.66784 37.9259C2.42669 33.7643 0.0282103 28.1045 0 22.1915C0.0282103 16.2784 2.42669 10.6185 6.66784 6.45693C10.909 2.29533 16.6454 -0.0271945 22.6154 0.00024032V0.00024032Z" fill="#E6101E"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.6094 1.81661C28.0897 1.79343 33.3549 3.92686 37.2475 7.74784C41.14 11.5688 43.3412 16.7645 43.3671 22.1926C43.3412 27.6207 41.14 32.8164 37.2475 36.6374C33.3549 40.4584 28.0897 42.5918 22.6094 42.5686C17.1284 42.5929 11.8621 40.4599 7.9687 36.6388C4.07527 32.8177 1.87352 27.6214 1.84766 22.1926C1.87352 16.7638 4.07527 11.5675 7.9687 7.74642C11.8621 3.92533 17.1284 1.79237 22.6094 1.81661Z" fill="#FFD141"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M37.1924 27.1572C36.8864 27.5678 36.4996 27.9128 36.0555 28.1716C35.6113 28.4303 35.1189 28.5974 34.6078 28.6628L21.5733 28.6524C20.9231 28.3236 20.8512 27.8667 21.5733 27.5875H28.9427C29.2679 27.5986 29.5911 27.5317 29.8846 27.3924C30.1781 27.2531 30.4332 27.0456 30.6283 26.7875C32.8495 23.9307 35.3339 21.2035 37.2651 18.1323C36.5687 18.8927 35.6308 19.3945 34.607 19.5548H25.5528C25.1268 19.5344 24.7025 19.6204 24.3189 19.8049C23.9353 19.9895 23.6047 20.2666 23.3575 20.6108L17.9282 27.3852C13.2557 32.8668 10.0193 20.7556 16.3403 22.6836L13.7556 19.4956C13.6088 19.3298 13.4279 19.197 13.2251 19.106C13.0223 19.015 12.8023 18.968 12.5796 18.968C12.357 18.968 12.1369 19.015 11.9341 19.106C11.7313 19.197 11.5505 19.3298 11.4036 19.4956C7.50894 24.386 7.43706 31.9252 15.6376 32.6452H33.1596L37.1981 27.1548L37.1924 27.1572ZM34.4915 11.7875C34.2345 12.0219 33.9306 12.1999 33.5996 12.3102C33.2685 12.4205 32.9177 12.4605 32.57 12.4276H24.6126C24.1795 12.4125 23.7484 12.4942 23.3515 12.6667C22.9545 12.8391 22.6019 13.0978 22.3196 13.4236L17.2433 19.7595L18.6737 21.5716L20.4183 19.4396C20.6913 19.1306 21.0293 18.8845 21.4086 18.7187C21.7878 18.5528 22.1991 18.4712 22.6136 18.4796H27.5922C30.0395 18.4796 33.2889 13.2332 34.4923 11.7852L34.4915 11.7875Z" fill="#3C792F"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M200.42 41.8019H203.104C203.02 42.0135 203.003 42.2454 203.055 42.4667C203.108 42.6881 203.227 42.8884 203.397 43.0411C204.385 43.8171 205.511 43.1667 206.035 42.3107C206.287 40.6971 203.04 41.1867 201.953 40.1203C201.811 39.9906 201.698 39.8332 201.62 39.6579C201.543 39.4826 201.503 39.2933 201.503 39.1019C201.496 38.2235 201.799 37.3704 202.36 36.6899C202.754 36.2859 203.242 35.9824 203.78 35.8051C204.617 35.5328 205.493 35.3977 206.374 35.4051C206.91 35.3871 207.446 35.4241 207.975 35.5155C209.637 35.7659 209.643 36.9267 209.643 38.1491H207.051L207.164 37.8611C207.164 37.0459 206.481 37.0203 205.901 37.0203C205.721 36.998 205.538 37.0112 205.363 37.0594C205.189 37.1075 205.025 37.1895 204.882 37.3007C204.74 37.4118 204.621 37.5499 204.532 37.7069C204.444 37.8639 204.387 38.0368 204.367 38.2155C204.359 38.377 204.405 38.5367 204.499 38.669C204.593 38.8014 204.729 38.8988 204.885 38.9459C207.262 39.3347 209.768 39.7459 208.762 42.3763C208.537 42.897 208.209 43.3684 207.799 43.7634C207.389 44.1584 206.904 44.4692 206.372 44.6779C205.575 44.9139 204.746 45.026 203.914 45.0099C203.238 45.0324 202.562 44.9577 201.907 44.7883C201.392 44.5826 200.936 44.2558 200.577 43.8363C200.375 43.5414 200.241 43.2066 200.182 42.8551C200.124 42.5036 200.143 42.1437 200.239 41.8003L200.42 41.8019ZM190.68 46.1835C192.504 46.1835 192.37 46.1515 193.363 44.6227L191.99 35.6723H195.372L195.711 41.2931L198.799 35.6723H201.73L196.071 45.2315C194.571 47.6235 193.19 47.9979 190.164 47.9979L190.682 46.1835H190.68ZM150.995 40.5187C149.857 40.5187 147.807 40.9675 147.387 42.1987C147.175 42.7587 147.608 43.1035 148.063 43.3275C150.049 43.3275 150.395 41.9883 150.994 40.5171L150.995 40.5187ZM145.945 38.5491C145.945 36.4755 148.719 35.6763 150.477 35.4507C152.227 35.4507 153.49 35.3587 154.31 36.8667C154.398 37.2366 154.413 37.6198 154.355 37.9955C154.027 39.6083 152.376 43.1955 152.982 44.6779V44.7219H150.118V43.9475C144.222 48.0819 142.108 40.4707 148.18 39.6763C148.71 39.5899 151.629 39.3347 151.629 38.2155C151.629 36.4331 149.449 37.1059 148.81 38.1051C148.777 38.2083 148.663 38.4667 148.63 38.5475L145.945 38.5491ZM187.478 40.5187C186.34 40.5187 184.289 40.9675 183.87 42.1987C183.657 42.7587 184.09 43.1035 184.546 43.3275C186.531 43.3275 186.878 41.9883 187.477 40.5171L187.478 40.5187ZM182.427 38.5491C182.427 36.4755 185.202 35.6763 186.959 35.4507C188.71 35.4507 189.973 35.3587 190.793 36.8667C190.88 37.2366 190.896 37.6198 190.838 37.9955C190.509 39.6083 188.858 43.1955 189.465 44.6779V44.7219H186.598V43.9475C180.702 48.0819 178.588 40.4707 184.66 39.6763C185.19 39.5899 188.11 39.3347 188.11 38.2155C188.11 36.4331 185.929 37.1059 185.291 38.1051C185.257 38.2083 185.144 38.4667 185.111 38.5475L182.427 38.5491ZM174.536 39.1691L171.605 44.7235H168.674L168.403 35.6731H171.38L171.267 41.2491L174.13 35.6731H176.813L176.588 41.2491L179.564 35.6731H182.608L177.264 44.7219H174.288L174.535 39.1675L174.536 39.1691ZM168.177 35.5179L167.546 37.6419H167.433C166.77 37.5527 166.096 37.6286 165.471 37.8627C164.887 38.1961 164.385 38.6524 163.999 39.1992C163.614 39.7461 163.354 40.3702 163.238 41.0275L162.198 44.7219H159.402L161.927 35.6715H164.61L164.206 36.9107C165.293 35.9479 166.718 35.4471 168.174 35.5163L168.177 35.5179ZM157.399 34.3891L157.965 32.2651H160.825L160.216 34.3891H157.399ZM159.857 35.6691L157.352 44.7219H154.533L157.059 35.6715L159.857 35.6691ZM197.011 16.0187L193.968 26.9059H189.616L194.645 9.09227H199.064L202.671 19.8923L205.716 9.09227H209.996L204.957 26.9059H200.62L197.01 16.0227L197.011 16.0187ZM179.469 20.5547H183.775L183.482 14.1595L179.469 20.5547V20.5547ZM187.045 9.09227C187.518 15.0299 187.992 20.9677 188.466 26.9059H183.934C183.88 25.8061 183.826 24.7069 183.772 23.6083H177.752L175.745 26.9059H171.167L182.622 9.09227H187.045ZM167.158 12.5883H161.949L162.918 9.09227H177.642L176.673 12.5883H171.511L167.452 26.9083H163.145L167.159 12.5883H167.158ZM148.823 21.1299C148.823 23.1563 149.887 24.5059 152.188 24.0899C155.463 23.5035 155.144 19.5955 151.33 19.1923C148.099 18.8515 146.469 16.2235 147.291 13.2043C148.664 10.2971 150.879 9.08028 154.281 8.64428H154.443C157.005 8.18748 160.657 8.82666 161.027 11.8971C161.195 12.5865 161.155 13.3095 160.914 13.9771H156.855C156.855 13.0707 156.653 12.2579 155.674 11.9771C152.646 11.0971 148.833 14.6507 155.244 16.2259C156.883 16.6259 159.135 17.2027 159.605 19.0475C160.238 22.1571 158.322 25.1451 155.748 26.5731C153.109 27.5026 150.263 27.7009 147.519 27.1467C144.486 26.1115 143.909 24.2491 144.363 21.3491L144.379 21.2939L144.396 21.2387L144.413 21.1835L144.43 21.1283L148.823 21.1299ZM141.721 9.09227H145.802L142.065 22.4523L140.819 26.9059H136.467L141.495 9.09227H141.721ZM125.69 16.0667L134.056 9.09628H139.331L130.335 16.4651L134.913 26.9099H129.591L126.615 19.3419L124.203 21.2891L122.607 26.9099H118.318L123.346 9.09628H127.653L125.691 16.0667H125.69ZM109.091 16.1771H117.618L116.693 19.3859H108.244C107.861 20.7352 107.477 22.0851 107.094 23.4355H116.88L115.955 26.9099H101.772L106.801 9.09628H120.712L119.743 12.5923H110.116C109.792 13.7867 109.421 14.9819 109.097 16.1771H109.091ZM92.7704 12.3707C92.4101 13.6027 92.0491 14.9227 91.6881 16.1547H94.9568C95.5692 16.2016 96.1795 16.041 96.6877 15.6993C97.1959 15.3576 97.5718 14.8549 97.7538 14.2739C97.9889 13.4427 97.8193 12.8003 96.9348 12.5227C95.8186 12.1715 93.9779 12.3707 92.7712 12.3707H92.7704ZM90.7633 19.2891C90.3594 20.7419 89.975 22.2027 89.5687 23.6563C92.0144 23.6563 95.5286 24.4019 96.4228 21.4211C96.7248 19.8755 95.5997 19.2891 94.2113 19.2891H90.7633ZM98.2748 9.09547C100.502 9.09547 102.959 9.90588 102.528 12.5755C102.28 13.6323 101.779 14.6141 101.066 15.4376C100.352 16.2611 99.4491 16.9017 98.4323 17.3051L98.421 17.3331L98.4097 17.3603L98.3984 17.3883L98.3871 17.4163C101.184 17.4163 101.165 20.9475 100.517 22.8003C99.5235 25.6403 96.4623 26.8803 93.5514 26.8803L84.2945 26.9059C85.9701 20.9677 87.6464 15.0299 89.3231 9.09227L98.2748 9.09547ZM80.1017 12.6363H71.8035L72.8406 9.09547H86.4599L85.6029 12.3707L73.5853 23.3691H83.0353L82.066 26.9099H67.3418C67.6875 25.656 68.0332 24.4027 68.3789 23.1499L80.1041 12.6387L80.1017 12.6363ZM59.6057 9.09547C58.6139 12.5621 57.6218 16.0288 56.6294 19.4955C56.2255 21.3043 56.2425 24.3259 58.9894 23.9635C61.1702 23.6755 62.8793 21.4955 63.313 19.4955C64.2669 16.0315 65.1917 12.5587 66.1448 9.09547H70.4256C69.1187 13.7587 68.3805 20.2011 65.2846 24.3419C64.3332 25.3256 63.1822 26.0985 61.9074 26.6097C60.6326 27.1208 59.2629 27.3586 57.8886 27.3075C52.7008 27.3075 51.4359 24.9667 52.0934 20.1155C53.1305 16.4419 54.1678 12.7685 55.2054 9.09547H59.6057Z" fill="blue"/>
+
+
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_1697_31139">
+                        <rect width="210" height="48" fill="white">
+                        </clipPath>
+                        </defs>
+                        </svg>
+                </div>
+                <div class="flight-details">
+                    <div class="font-semibold">Flight HY</div>
+                    <div class="mb-2">Tashkent <span class="arrow">➔</span> Paris</div>
+                    <div class="text-sm">
+                        <div>Departure: 09:30, 12 July, Mon</div>
+                        <div>Arrival: 12:30, 12 July, Mon</div>
+                        <div>Aircraft: Airbus A320</div>
+                        <div class="flight-duration">2h 00m</div>
+                        <div class="flight-distance">344 km</div>
+                        <div class="w-full md:w-auto">
+                            <button class="button">Buy ticket</button>                        </div>
+                    </div>
+                </div>
+                 
+            </div>
+            
+        </div>
+        <div class="flight-info">
+        <div class="text-xl font-semibold mb-4">Business Class</div>
+            <div class="border-b pb-4 mb-4 flex items-center">
+        <div class="mr-4">
+            <svg width="210" height="48" viewBox="0 0 210 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_1697_31139)">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.6154 0.00024032C28.5839 -0.025067 34.3183 2.29839 38.5577 6.45976C42.7971 10.6211 45.1945 16.2798 45.2227 22.1915C45.1945 28.1031 42.7971 33.7617 38.5577 37.9231C34.3183 42.0845 28.5839 44.4079 22.6154 44.3826C16.6454 44.4101 10.909 42.0876 6.66784 37.9259C2.42669 33.7643 0.0282103 28.1045 0 22.1915C0.0282103 16.2784 2.42669 10.6185 6.66784 6.45693C10.909 2.29533 16.6454 -0.0271945 22.6154 0.00024032V0.00024032Z" fill="#E6101E"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.6094 1.81661C28.0897 1.79343 33.3549 3.92686 37.2475 7.74784C41.14 11.5688 43.3412 16.7645 43.3671 22.1926C43.3412 27.6207 41.14 32.8164 37.2475 36.6374C33.3549 40.4584 28.0897 42.5918 22.6094 42.5686C17.1284 42.5929 11.8621 40.4599 7.9687 36.6388C4.07527 32.8177 1.87352 27.6214 1.84766 22.1926C1.87352 16.7638 4.07527 11.5675 7.9687 7.74642C11.8621 3.92533 17.1284 1.79237 22.6094 1.81661Z" fill="#FFD141"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M37.1924 27.1572C36.8864 27.5678 36.4996 27.9128 36.0555 28.1716C35.6113 28.4303 35.1189 28.5974 34.6078 28.6628L21.5733 28.6524C20.9231 28.3236 20.8512 27.8667 21.5733 27.5875H28.9427C29.2679 27.5986 29.5911 27.5317 29.8846 27.3924C30.1781 27.2531 30.4332 27.0456 30.6283 26.7875C32.8495 23.9307 35.3339 21.2035 37.2651 18.1323C36.5687 18.8927 35.6308 19.3945 34.607 19.5548H25.5528C25.1268 19.5344 24.7025 19.6204 24.3189 19.8049C23.9353 19.9895 23.6047 20.2666 23.3575 20.6108L17.9282 27.3852C13.2557 32.8668 10.0193 20.7556 16.3403 22.6836L13.7556 19.4956C13.6088 19.3298 13.4279 19.197 13.2251 19.106C13.0223 19.015 12.8023 18.968 12.5796 18.968C12.357 18.968 12.1369 19.015 11.9341 19.106C11.7313 19.197 11.5505 19.3298 11.4036 19.4956C7.50894 24.386 7.43706 31.9252 15.6376 32.6452H33.1596L37.1981 27.1548L37.1924 27.1572ZM34.4915 11.7875C34.2345 12.0219 33.9306 12.1999 33.5996 12.3102C33.2685 12.4205 32.9177 12.4605 32.57 12.4276H24.6126C24.1795 12.4125 23.7484 12.4942 23.3515 12.6667C22.9545 12.8391 22.6019 13.0978 22.3196 13.4236L17.2433 19.7595L18.6737 21.5716L20.4183 19.4396C20.6913 19.1306 21.0293 18.8845 21.4086 18.7187C21.7878 18.5528 22.1991 18.4712 22.6136 18.4796H27.5922C30.0395 18.4796 33.2889 13.2332 34.4923 11.7852L34.4915 11.7875Z" fill="#3C792F"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M200.42 41.8019H203.104C203.02 42.0135 203.003 42.2454 203.055 42.4667C203.108 42.6881 203.227 42.8884 203.397 43.0411C204.385 43.8171 205.511 43.1667 206.035 42.3107C206.287 40.6971 203.04 41.1867 201.953 40.1203C201.811 39.9906 201.698 39.8332 201.62 39.6579C201.543 39.4826 201.503 39.2933 201.503 39.1019C201.496 38.2235 201.799 37.3704 202.36 36.6899C202.754 36.2859 203.242 35.9824 203.78 35.8051C204.617 35.5328 205.493 35.3977 206.374 35.4051C206.91 35.3871 207.446 35.4241 207.975 35.5155C209.637 35.7659 209.643 36.9267 209.643 38.1491H207.051L207.164 37.8611C207.164 37.0459 206.481 37.0203 205.901 37.0203C205.721 36.998 205.538 37.0112 205.363 37.0594C205.189 37.1075 205.025 37.1895 204.882 37.3007C204.74 37.4118 204.621 37.5499 204.532 37.7069C204.444 37.8639 204.387 38.0368 204.367 38.2155C204.359 38.377 204.405 38.5367 204.499 38.669C204.593 38.8014 204.729 38.8988 204.885 38.9459C207.262 39.3347 209.768 39.7459 208.762 42.3763C208.537 42.897 208.209 43.3684 207.799 43.7634C207.389 44.1584 206.904 44.4692 206.372 44.6779C205.575 44.9139 204.746 45.026 203.914 45.0099C203.238 45.0324 202.562 44.9577 201.907 44.7883C201.392 44.5826 200.936 44.2558 200.577 43.8363C200.375 43.5414 200.241 43.2066 200.182 42.8551C200.124 42.5036 200.143 42.1437 200.239 41.8003L200.42 41.8019ZM190.68 46.1835C192.504 46.1835 192.37 46.1515 193.363 44.6227L191.99 35.6723H195.372L195.711 41.2931L198.799 35.6723H201.73L196.071 45.2315C194.571 47.6235 193.19 47.9979 190.164 47.9979L190.682 46.1835H190.68ZM150.995 40.5187C149.857 40.5187 147.807 40.9675 147.387 42.1987C147.175 42.7587 147.608 43.1035 148.063 43.3275C150.049 43.3275 150.395 41.9883 150.994 40.5171L150.995 40.5187ZM145.945 38.5491C145.945 36.4755 148.719 35.6763 150.477 35.4507C152.227 35.4507 153.49 35.3587 154.31 36.8667C154.398 37.2366 154.413 37.6198 154.355 37.9955C154.027 39.6083 152.376 43.1955 152.982 44.6779V44.7219H150.118V43.9475C144.222 48.0819 142.108 40.4707 148.18 39.6763C148.71 39.5899 151.629 39.3347 151.629 38.2155C151.629 36.4331 149.449 37.1059 148.81 38.1051C148.777 38.2083 148.663 38.4667 148.63 38.5475L145.945 38.5491ZM187.478 40.5187C186.34 40.5187 184.289 40.9675 183.87 42.1987C183.657 42.7587 184.09 43.1035 184.546 43.3275C186.531 43.3275 186.878 41.9883 187.477 40.5171L187.478 40.5187ZM182.427 38.5491C182.427 36.4755 185.202 35.6763 186.959 35.4507C188.71 35.4507 189.973 35.3587 190.793 36.8667C190.88 37.2366 190.896 37.6198 190.838 37.9955C190.509 39.6083 188.858 43.1955 189.465 44.6779V44.7219H186.598V43.9475C180.702 48.0819 178.588 40.4707 184.66 39.6763C185.19 39.5899 188.11 39.3347 188.11 38.2155C188.11 36.4331 185.929 37.1059 185.291 38.1051C185.257 38.2083 185.144 38.4667 185.111 38.5475L182.427 38.5491ZM174.536 39.1691L171.605 44.7235H168.674L168.403 35.6731H171.38L171.267 41.2491L174.13 35.6731H176.813L176.588 41.2491L179.564 35.6731H182.608L177.264 44.7219H174.288L174.535 39.1675L174.536 39.1691ZM168.177 35.5179L167.546 37.6419H167.433C166.77 37.5527 166.096 37.6286 165.471 37.8627C164.887 38.1961 164.385 38.6524 163.999 39.1992C163.614 39.7461 163.354 40.3702 163.238 41.0275L162.198 44.7219H159.402L161.927 35.6715H164.61L164.206 36.9107C165.293 35.9479 166.718 35.4471 168.174 35.5163L168.177 35.5179ZM157.399 34.3891L157.965 32.2651H160.825L160.216 34.3891H157.399ZM159.857 35.6691L157.352 44.7219H154.533L157.059 35.6715L159.857 35.6691ZM197.011 16.0187L193.968 26.9059H189.616L194.645 9.09227H199.064L202.671 19.8923L205.716 9.09227H209.996L204.957 26.9059H200.62L197.01 16.0227L197.011 16.0187ZM179.469 20.5547H183.775L183.482 14.1595L179.469 20.5547V20.5547ZM187.045 9.09227C187.518 15.0299 187.992 20.9677 188.466 26.9059H183.934C183.88 25.8061 183.826 24.7069 183.772 23.6083H177.752L175.745 26.9059H171.167L182.622 9.09227H187.045ZM167.158 12.5883H161.949L162.918 9.09227H177.642L176.673 12.5883H171.511L167.452 26.9083H163.145L167.159 12.5883H167.158ZM148.823 21.1299C148.823 23.1563 149.887 24.5059 152.188 24.0899C155.463 23.5035 155.144 19.5955 151.33 19.1923C148.099 18.8515 146.469 16.2235 147.291 13.2043C148.664 10.2971 150.879 9.08028 154.281 8.64428H154.443C157.005 8.18748 160.657 8.82666 161.027 11.8971C161.195 12.5865 161.155 13.3095 160.914 13.9771H156.855C156.855 13.0707 156.653 12.2579 155.674 11.9771C152.646 11.0971 148.833 14.6507 155.244 16.2259C156.883 16.6259 159.135 17.2027 159.605 19.0475C160.238 22.1571 158.322 25.1451 155.748 26.5731C153.109 27.5026 150.263 27.7009 147.519 27.1467C144.486 26.1115 143.909 24.2491 144.363 21.3491L144.379 21.2939L144.396 21.2387L144.413 21.1835L144.43 21.1283L148.823 21.1299ZM141.721 9.09227H145.802L142.065 22.4523L140.819 26.9059H136.467L141.495 9.09227H141.721ZM125.69 16.0667L134.056 9.09628H139.331L130.335 16.4651L134.913 26.9099H129.591L126.615 19.3419L124.203 21.2891L122.607 26.9099H118.318L123.346 9.09628H127.653L125.691 16.0667H125.69ZM109.091 16.1771H117.618L116.693 19.3859H108.244C107.861 20.7352 107.477 22.0851 107.094 23.4355H116.88L115.955 26.9099H101.772L106.801 9.09628H120.712L119.743 12.5923H110.116C109.792 13.7867 109.421 14.9819 109.097 16.1771H109.091ZM92.7704 12.3707C92.4101 13.6027 92.0491 14.9227 91.6881 16.1547H94.9568C95.5692 16.2016 96.1795 16.041 96.6877 15.6993C97.1959 15.3576 97.5718 14.8549 97.7538 14.2739C97.9889 13.4427 97.8193 12.8003 96.9348 12.5227C95.8186 12.1715 93.9779 12.3707 92.7712 12.3707H92.7704ZM90.7633 19.2891C90.3594 20.7419 89.975 22.2027 89.5687 23.6563C92.0144 23.6563 95.5286 24.4019 96.4228 21.4211C96.7248 19.8755 95.5997 19.2891 94.2113 19.2891H90.7633ZM98.2748 9.09547C100.502 9.09547 102.959 9.90588 102.528 12.5755C102.28 13.6323 101.779 14.6141 101.066 15.4376C100.352 16.2611 99.4491 16.9017 98.4323 17.3051L98.421 17.3331L98.4097 17.3603L98.3984 17.3883L98.3871 17.4163C101.184 17.4163 101.165 20.9475 100.517 22.8003C99.5235 25.6403 96.4623 26.8803 93.5514 26.8803L84.2945 26.9059C85.9701 20.9677 87.6464 15.0299 89.3231 9.09227L98.2748 9.09547ZM80.1017 12.6363H71.8035L72.8406 9.09547H86.4599L85.6029 12.3707L73.5853 23.3691H83.0353L82.066 26.9099H67.3418C67.6875 25.656 68.0332 24.4027 68.3789 23.1499L80.1041 12.6387L80.1017 12.6363ZM59.6057 9.09547C58.6139 12.5621 57.6218 16.0288 56.6294 19.4955C56.2255 21.3043 56.2425 24.3259 58.9894 23.9635C61.1702 23.6755 62.8793 21.4955 63.313 19.4955C64.2669 16.0315 65.1917 12.5587 66.1448 9.09547H70.4256C69.1187 13.7587 68.3805 20.2011 65.2846 24.3419C64.3332 25.3256 63.1822 26.0985 61.9074 26.6097C60.6326 27.1208 59.2629 27.3586 57.8886 27.3075C52.7008 27.3075 51.4359 24.9667 52.0934 20.1155C53.1305 16.4419 54.1678 12.7685 55.2054 9.09547H59.6057Z" fill="blue"/>
+</g>
+                <defs>
+                <clipPath id="clip0_1697_31139">
+                <rect width="210" height="48" fill="white">
+                </clipPath>
+                </defs>
+                </svg>
+        </div>
+
+
+        <div class="flight-details">
+            <div class="font-semibold">Flight AJ786</div>
+            <div class="mb-2">Tashkent <span class="arrow">➔</span> Paris</div>
+            <div class="text-sm">
+                <div>Departure: 07:30, 12 July, Mon</div>
+                <div>Arrival: 10:30, 12 July, Mon</div>
+                <div>Aircraft: Airbus A320</div>
+                <div class="flight-duration">2h 00m</div>
+                <div class="flight-distance">344 km</div>
+                <div class="w-full md:w-auto">
+                    <button class="button">Buy ticket</button>                </div>
+            </div>
+        </div>
+        </div></div>
+        </div>
+    </div>
+
+
+
+    
+    <div
+        class="relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32"
+      >
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2"
+          >
+            <div class="max-w-xl lg:max-w-lg">
+              <h2
+                class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+              >
+                Subscribe to our newsletter.
+              </h2>
+              <p class="mt-4 text-lg leading-8 text-gray-300">
+                Subscribe to our newsletter and never miss out on the latest news, deals, and offers.
+              </p>
+              <div class="mt-6 flex max-w-md gap-x-4">
+                <label for="email-address" class="sr-only">Email address</label>
+                <input
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                  placeholder="Enter your email"
+                />
+                <button
+                  type="submit"
+                  class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </div>
+            <dl
+              class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2"
+            >
+              <div class="flex flex-col items-start">
+                <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
+                    />
+                  </svg>
+                </div>
+                <dt class="mt-4 font-semibold text-white">Weekly articles</dt>
+                <dd class="mt-2 leading-7 text-gray-400">
+                  Get access to our latest articles, tips, and trends delivered straight to your inbox every week.
+                </dd>
+              </div>
+              <div class="flex flex-col items-start">
+                <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"
+                    />
+                  </svg>
+                </div>
+                <dt class="mt-4 font-semibold text-white">No spam</dt>
+                <dd class="mt-2 leading-7 text-gray-400">
+                  Rest assured, no spam! Enjoy our newsletter filled with valuable content and updates, delivered to you with care.
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+        <div
+          class="absolute left-1/2 top-0 -z-10 -translate-x-1/2 blur-3xl xl:-top-6"
+          aria-hidden="true"
+        >
+          <div
+            class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
+            style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+          ></div>
+        </div>
+      </div>
+    </main>
+</body>
+<script src="../scripts/menu.js"></script>
+</html>
+
