@@ -1,3 +1,5 @@
+import { getAuthState, logout } from "./auth.js";
+
 const menu = document.getElementById("mobile-menu");
 const toggleButton = document.getElementById("toggleButton");
 const menuOpenedIcon = document.getElementById("menuOpenedIcon");
@@ -32,3 +34,18 @@ const toggleDropDown = () => {
 
 toggleButton.addEventListener("click", toggleMenu);
 dropDownButton.addEventListener("click", toggleDropDown);
+
+
+const userProfile = document.querySelectorAll('p[name="user-profile"]');
+
+const search = document.getElementById("search");
+
+const logoutButton = document.querySelectorAll('button[name="logout"');
+userProfile.forEach((e) => {
+  e.innerHTML = getAuthState().user.fullname;
+});
+logoutButton.forEach((e) => {
+  e.addEventListener("click", () => {
+    logout();
+  });
+});
