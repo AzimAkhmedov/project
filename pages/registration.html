@@ -28,25 +28,55 @@
         </h2>
       </div>
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" action="#" method="POST">
+        <form class="space-y-6" id="submit">
           <div>
             <label
-              for="email"
+              for="fullname"
               class="block text-sm font-medium leading-6 text-gray-900"
-              >Email address</label
-            >
+              >Your fullname
+            </label>
             <div class="mt-2">
               <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
+                id="fullname"
+                name="fullname"
+                type="text"
                 required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-
+          <div>
+            <label
+              for="passport"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Passport Number</label
+            >
+            <div class="mt-2">
+              <input
+                id="passport"
+                name="passport"
+                type="text"
+                required
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              for="citizenship"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Citizenship</label
+            >
+            <div class="mt-2">
+              <input
+                id="citizenship"
+                name="citizenship"
+                type="text"
+                required
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
           <div>
             <div class="flex items-center justify-between">
               <label
@@ -69,15 +99,15 @@
           <div>
             <div class="flex items-center justify-between">
               <label
-                for="password"
+                for="password-check"
                 class="block text-sm font-medium leading-6 text-gray-900"
                 >Repeat your password</label
               >
             </div>
             <div class="mt-2">
               <input
-                id="password"
-                name="password"
+                id="password-check"
+                name="password-check"
                 type="password"
                 autocomplete="current-password"
                 required
@@ -114,4 +144,5 @@
       </div>
     </div>
   </body>
+  <script type="module" src="../scripts/registration.js"></script>
 </html>
