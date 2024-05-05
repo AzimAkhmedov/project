@@ -35,17 +35,23 @@ const toggleDropDown = () => {
 toggleButton.addEventListener("click", toggleMenu);
 dropDownButton.addEventListener("click", toggleDropDown);
 
-
 const userProfile = document.querySelectorAll('p[name="user-profile"]');
 
 const search = document.getElementById("search");
 
 const logoutButton = document.querySelectorAll('button[name="logout"');
 userProfile.forEach((e) => {
-  e.innerHTML = getAuthState().user.fullname;
+  e.innerHTML = getAuthState().isAuth ? getAuthState().user.fullname : "Guest";
 });
 logoutButton.forEach((e) => {
+  if (!getAuthState().isAuth) {
+    e.innerHTML = "Sign up";
+  }
   e.addEventListener("click", () => {
-    logout();
+    if (getAuthState().isAuth) {
+      logout();
+    } else {
+      window.location.href = "./registration.html";
+    }
   });
 });
