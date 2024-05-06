@@ -93,6 +93,8 @@ const logout = () => {
   authState.isAuth = false;
   authState.user = null;
   localStorage.removeItem("user");
+  localStorage.removeItem("company_id");
+
   window.location.href = "/";
 }
 
