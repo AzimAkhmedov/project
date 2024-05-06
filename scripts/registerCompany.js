@@ -9,6 +9,20 @@ const companyState = {
   countries: [],
 };
 
+const getCompanyId = () => {
+  const company_id = localStorage.getItem("company_id");
+  if (company_id) {
+    window.location.href = "./admin.html";
+  }
+};
+function onMount(callback) {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", callback);
+  } else {
+    callback();
+  }
+}
+
 const fetchCountries = async () => {
   const response = await fetch("http://localhost:8080/api/v1/countries", {
     method: "GET",
@@ -42,7 +56,7 @@ const addEmployee = async (companyID, userId) => {
   });
   const data = await response.json();
   if (!data.message) {
-    window.location.href = "./pages/admin.html";
+    window.location.href = "./admin.html";
   }
 };
 
@@ -60,6 +74,7 @@ const registerCompany = async () => {
   const data = await response.json();
 
   if (data.company_id) {
+    localStorage.setItem("company_id", data.company_id);
     await addEmployee(data.company_id, getAuthState().user.id);
   }
 };
@@ -78,3 +93,5 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   registerCompany();
 });
+
+onMount(getCompanyId);
